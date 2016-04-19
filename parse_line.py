@@ -17,93 +17,54 @@ def parse_file(fileName):
   inputFile.close()
   outputFile.close()
 
-#helper_function, counts the lines  
-def count_lines(fileName):
-  inputFile = open(os.path.join("Texts", fileName), 'r')
-  i = 0
-  for line in inputFile:
-   print line + ":" + str(i)
-   i += 1
-  inputFile.close()
-   
-   
-  #     0       1      2  3  4  5  6   7   8  9 10 11 12    13        14  15  16  17  18   19
-  # { [Class, Section, A, B, C, D, F, GPR, I, S, U, Q, X, Instructor, %A, %B, %C, %D, %F , SY]
+#file format output
+#     0          1      2  3  4  5  6   7   8  9 10 11 12    13     14  15  16  17  18   19
+# { [Class, Instructor, A, B, C, D, F, GPR, I, S, U, Q, X, %A, %B, %C, %D, %F , SY]
   
-  #     0       1      2  3  4  5  6   7   8  9 10 11 12  13  14  15  16  17  18  
-  # { [Class, Section, A, B, C, D, F, GPR, I, S, U, Q, X, %A, %B, %C, %D, %F, SY]
-   
 def show(fileName):
   CLASS = ""
-  CLASS1 = ""
-  SECTION = ""
-  SY = ""
-  check = 0
+  SY = "SPRING 2015"
   PERCENT0 = ""
-  PERCENT1 = ""
   COURSE = ""
+  PROF = ""
+  MASTER = ""
   
   inputFile = open(os.path.join("Texts", fileName), 'r')
+  outputFile = open(os.path.join("Texts", "E" + fileName), 'w')
   for line in inputFile:
     word = line.split()
-    if word[0] == "TEXAS" or word[0] == "SECTION" or word[0] == "TOTAL":
-      continue
-    elif re.match('(-+)',' '.join(word)):
-      continue
-    elif word[0] == "GRADE":
+
+    if word[0] == "GRADE":
       p = re.compile('(FALL|SPRING|SUMMER) \w{4}')
       temp = p.search(' '.join(word))
-      SY = temp.group(0)
-      print SY
-    elif word[0] == "COLLEGE:":
-      COLLEGE = " ".join(word[1::])
-      print " ".join(word[1::])
-    elif word[0] == "DEPARTMENT:":
-      DEPARTMENT = " ".join(word[1::])
-      print DEPARTMENT
+      if(temp.group(0) != SY):
+        SY = temp.group(0)
     else:
       if re.match('((\w){4}-(\w){3}-(\w){3})',' '.join(word)): #CLASS
         check = 0
         p = re.compile('((\w){4}-(\w){3}-(\w){3})')
-        temp = p.search(' '.join(word))
-        #print word
-        CLASS = temp.group(0)
-        CLASS1 = CLASS[0:8]
-        SECTION = CLASS[-3::]
-        GRADE = word[1:6] + word[7:13] + word[14:16]
+        regex = p.search(' '.join(word))
+        temp = regex.group(0)
+        CLASS = ''.join(temp[0:8])
+        PROF = ' '.join(word[14:16])
+        GRADE = PROF + ',' + ','.join(word[1:6]) + ',' + ','.join(word[7:13]) 
         
-      if re.match('((\w){2}.(\w){2}%)',' '.join(word)):
-        p = re.compile('((\w){2}.(\w){2}%)')
-        temp = p.search(' '.join(word))
-        PERCENT = temp.group(0)
+        MASTER =  CLASS + ',' + SY + ',' + GRADE + ',' + PERCENT0
+        print MASTER
+        outputFile.write(str(MASTER) + '\n')
         
-        if check == 0: #for the class section
-          PERCENT0 = word[0:5]
-          #print PERCENT , "CLASS"
-          print "CLASS", CLASS1 , SECTION , GRADE , PERCENT0 , SY
+      # elif re.match('((\w){2}.(\w){2}%)',' '.join(word)):
+      #   p = re.compile('((\w){2}.(\w){2}%)')
+      #   temp = p.search(' '.join(word))
+      #   PERCENT0 = ','.join(word[0:5])
+      #   MASTER =  CLASS + ',' + SY + ',' + GRADE + ',' + PERCENT0
+      #   print MASTER
+      #   outputFile.write(str(MASTER)+ '\n')
+      else:
+        continue
         
-        else: # for the course total 
-          PERCENT1 = word[0:5]
-          #print PERCENT , "COURSE"
-          print "COURSE", CLASS1 , SECTION , COURSE , PERCENT1 , SY
-          
-      if word[0] == "COURSE":
-        check = 1
-        COURSE = word[2:7] + word[8:14] + word[15:17]
-        
-        
-      
-  #     0       1      2  3  4  5  6   7   8  9 10 11 12    13        14  15  16  17  18   19
-  # { [Class, Section, A, B, C, D, F, GPR, I, S, U, Q, X, Instructor, %A, %B, %C, %D, %F , SY]
-  
-  #     0       1      2  3  4  5  6   7   8  9 10 11 12  13  14  15  16  17  18  
-  # { [Class, Section, A, B, C, D, F, GPR, I, S, U, Q, X, %A, %B, %C, %D, %F, SY]  
-    
-      
-      
-   
-   
-   
+  outputFile.close()  
+
 def main():
 
   if len(sys.argv) != 3:
@@ -115,8 +76,6 @@ def main():
   
   if option == '--parse':
     parse_file(fileName)
-  elif option == '--count':
-    count_lines(fileName)
   elif option == '--show':
     show(fileName)
   else:
