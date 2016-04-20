@@ -1,26 +1,19 @@
 import sys
 import os
-from subprocess import call
-
-
-def to_text(mainFolder):
-  for folder in os.listdir(mainFolder):
-    for file in os.listdir(mainFolder + "/" + folder):
-      call('pdftotext -layout ' + file + ' Output/'+ file)
-
 
 def parse_files(mainFolder):
+  outputFile = open(os.path.join(mainFolder, 'Main.txt' ), 'w')
   for folder in os.listdir(mainFolder):
-    outputFile = open(os.path.join(mainFolder, folder), 'w')
     for file in os.listdir(mainFolder + "/" + folder):
-      openedFile = open(os.path.join(mainFolder + '/' + folder, file), "r")
-      for line in openedFile:
-        if(line.isspace()):
-          continue
-        else:
-          outputFile.write(line)
-      openedFile.close()
-    outputFile.close()
+      if file.endswith(".txt"):
+        openedFile = open(os.path.join(mainFolder + '/' + folder, file), "r")
+        for line in openedFile:
+          if(line.isspace()):
+            continue
+          else:
+            outputFile.write(line)
+        openedFile.close()
+  outputFile.close()
 
 
 # def parse_files(mainFolder):
