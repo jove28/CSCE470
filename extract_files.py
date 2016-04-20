@@ -2,7 +2,7 @@ import sys
 import os
 import re
 
-
+#app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
 #given the folder Project/ 
 #it will get rid of empty lines and condense a folder to a file
 #move the files from Project/file.txt to the folder pdftotext

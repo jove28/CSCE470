@@ -2,8 +2,6 @@ import sys
 import os
 import re
 
-
-
 mainDictionary = []
 
 def parse_file(fileName):
