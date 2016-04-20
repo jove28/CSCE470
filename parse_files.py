@@ -4,18 +4,32 @@ import parse_line
 
 def parse_files(mainFolder):
   for folder in os.listdir(mainFolder):
-    f = open(os.path.join(mainFolder, folder), "r")
-    outputFile = open(os.path.join(f, f), 'w')
-    for file in f:
-      openedFile = open(os.path.join(f, file), "r")
+    outputFile = open(os.path.join(mainFolder + "/Output", folder), 'w')
+    for file in os.listdir(mainFolder + "/" + folder):
+      openedFile = open(os.path.join(mainFolder + '/' + folder, file), "r")
       for line in openedFile:
         if(line.isspace()):
           continue
         else:
           outputFile.write(line)
-      openedFile.close()  
+      openedFile.close()
     outputFile.close()
-    f.close()
+
+
+# def parse_files(mainFolder):
+#   for folder in os.listdir(mainFolder):
+#     f = open(os.path.join(mainFolder, folder), "r")
+#     outputFile = open(os.path.join(f, f), 'w')
+#     for file in f:
+#       openedFile = open(os.path.join(f, file), "r")
+#       for line in openedFile:
+#         if(line.isspace()):
+#           continue
+#         else:
+#           outputFile.write(line)
+#       openedFile.close()  
+#     outputFile.close()
+#     f.close()
   
 def parse_file(fileName):
   inputFile = open(os.path.join("Texts", fileName), 'r')
