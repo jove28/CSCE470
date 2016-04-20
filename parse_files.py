@@ -1,10 +1,17 @@
 import sys
 import os
-import parse_line
+from subprocess import call
+
+
+def to_text(mainFolder):
+  for folder in os.listdir(mainFolder):
+    for file in os.listdir(mainFolder + "/" + folder):
+      call('pdftotext -layout ' + file + ' Output/'+file)
+
 
 def parse_files(mainFolder):
   for folder in os.listdir(mainFolder):
-    outputFile = open(os.path.join(mainFolder + "/Output", folder), 'w')
+    outputFile = open(os.path.join(mainFolder, folder), 'w')
     for file in os.listdir(mainFolder + "/" + folder):
       openedFile = open(os.path.join(mainFolder + '/' + folder, file), "r")
       for line in openedFile:
