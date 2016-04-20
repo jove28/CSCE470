@@ -50,7 +50,7 @@ def show(fileName):
         GRADE = PROF + ',' + ','.join(word[1:6]) + ',' + ','.join(word[7:13]) 
         
         MASTER =  CLASS + ',' + SY + ',' + GRADE + ',' + PERCENT0
-        print MASTER
+        #print MASTER
         outputFile.write(str(MASTER) + '\n')
         
       # elif re.match('((\w){2}.(\w){2}%)',' '.join(word)):
@@ -68,7 +68,7 @@ def show(fileName):
 def main():
 
   if len(sys.argv) != 3:
-    print 'usage: ./prac.py {--parse | --count | -- show} file'
+    print 'usage: ./prac.py {--parse | --count | -- show} folder'
     sys.exit(1)
 
   option = sys.argv[1]
