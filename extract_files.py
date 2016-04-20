@@ -2,6 +2,10 @@ import sys
 import os
 import re
 
+
+#given the folder Project/ 
+#it will get rid of empty lines and condense a folder to a file
+#move the files from Project/file.txt to the folder pdftotext
 def parse_files(mainFolder):
   for folder in os.listdir(mainFolder):
     outputFile = open(os.path.join(mainFolder, folder + '.txt' ), 'w')
@@ -30,7 +34,7 @@ def show(mainFolder):
   PROF = ""
   MASTER = ""
   
-  outputFile = open(("main.txt"), 'w')
+  outputFile = open(("Database.txt"), 'w')
   for file in os.listdir(mainFolder):
     inputFile = open(os.path.join(mainFolder, file), 'r')
     for line in inputFile:
@@ -62,7 +66,7 @@ def show(mainFolder):
   
 def main():
   if len(sys.argv) != 3:
-    print 'usage: ./parse_files.py {--parse | --extract} file'
+    print 'usage: ./extract_files.py {--parse | --extract} Folder'
     sys.exit(1)
   option = sys.argv[1]
   mainFolder = sys.argv[2]

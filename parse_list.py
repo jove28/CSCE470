@@ -7,14 +7,14 @@ import re
 mainDictionary = []
 
 def parse_file(fileName):
-  inputFile = open(( fileName), 'r')
+  inputFile = open((fileName), 'r')
   
   for line in inputFile:
     word = line.rstrip().split(',')
     mainDictionary.append(word)
 
 def getKey(item):
-  return item[0][2]
+  return (item[2], item[1])
   
   
 #def getClass(classList):
@@ -22,19 +22,18 @@ def getKey(item):
   
 
 def main():
-
+  parse_file("Database.txt")
+  sortedDictionary = sorted(mainDictionary,key = getKey)
+  
   if len(sys.argv) != 3:
-    print 'usage: ./prac.py {--parse} file'
+    print 'usage: ./prac.py {--class} query'
     sys.exit(1)
   option = sys.argv[1]
-  fileName = sys.argv[2]
+  query = sys.argv[2]
   
-  if option == '--parse':
-    parse_file(fileName)
-    sorted(mainDictionary,key = getKey)
-    
-    for item in mainDictionary:
-      if item[2] == 'CAVERLEE J':
+  if option == '--class':
+    for item in sortedDictionary:
+      if item[0] == query:
         print item 
     
   else:
