@@ -4,14 +4,14 @@ import re
 
 
 
-yes = []
+mainDictionary = []
 
 def parse_file(fileName):
-  inputFile = open(os.path.join("Texts", fileName), 'r')
+  inputFile = open(( fileName), 'r')
   
   for line in inputFile:
     word = line.rstrip().split(',')
-    yes.append(word)
+    mainDictionary.append(word)
 
 def getKey(item):
   return item[0][2]
@@ -31,10 +31,11 @@ def main():
   
   if option == '--parse':
     parse_file(fileName)
-    sorted(yes,key = getKey)
+    sorted(mainDictionary,key = getKey)
     
-    for item in yes:
-      print item
+    for item in mainDictionary:
+      if item[2] == 'CAVERLEE J':
+        print item 
     
   else:
     print 'unknown option: ' + option
