@@ -6,7 +6,7 @@ from subprocess import call
 def to_text(mainFolder):
   for folder in os.listdir(mainFolder):
     for file in os.listdir(mainFolder + "/" + folder):
-      call('pdftotext -layout ' + file + ' Output/'+file)
+      call('pdftotext -layout ' + file + ' Output/'+ file)
 
 
 def parse_files(mainFolder):
@@ -61,7 +61,7 @@ def main():
   mainFolder = sys.argv[2]
   
   if option == '-folder':
-    parse_files(mainFolder)
+    to_text(mainFolder)
   else:
     print 'unknown option: ' + option
     sys.exit(1)
