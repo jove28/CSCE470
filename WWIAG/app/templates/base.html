@@ -1,13 +1,16 @@
 <html>
+  <meta charset = "utf-8" />
+  <link href = "/static/CSS/base.css" rel="stylesheet">
+  
   <head>
     {% if title %}
     <title>{{ title }} - WWIAG</title>
     {% else %}
-    <title>Welcome to WWIAG</title>
+    <title>Welcome to WWIAG</titles>
     {% endif %}
   </head>
   <body>
-    <div>WWIAG: <a href="/index">Home</a></div>
+    <div class = "nav" >WWIAG: <a href="/index">Home</a></div>
     <hr>
     {% block content %}{% endblock %}
   </body>

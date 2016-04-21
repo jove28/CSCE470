@@ -24,19 +24,22 @@ def main():
   sortedDictionary = sorted(mainDictionary,key = getKey)
   
   if len(sys.argv) != 3:
-    print 'usage: ./prac.py {--class} query'
+    print 'usage: ./parse_list.py {--class} query'
     sys.exit(1)
   option = sys.argv[1]
-  query = sys.argv[2]
+  query = sys.argv[2].lower()
   
   if option == '--class':
     for item in sortedDictionary:
-      if item[0] == query:
+      lastName = []
+      lastName= item[0].lower().split(' ')
+      if lastName[0] == query:
         print item 
-    
+        
   else:
     print 'unknown option: ' + option
     sys.exit(1)
+
 
 if __name__ == '__main__':
   main()

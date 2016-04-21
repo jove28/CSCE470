@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block content %}
+    <link href = "/static/CSS/index.css" rel="stylesheet">
+    {% for item in sortedClasses %}
+            <div id ="resultC">
+                <p>
+                    <b>Class: </b> {{ item[0]}}<br>
+                    <b>Professor: </b>{{ item[2] }}<br>
+                    <b>Semester: </b>{{ item[1] }}<br>
+                    <b>G.P.R AVG: </b>{{ item[8] }}<br>
+                </p>
+            </div>
+    {% endfor %}
+{% endblock %}
+<!--<h3>Professor: {{ sortedClasses[0][2]}}</h3> -->
+    <!--{% for item in sortedClasses %}-->
+    <!--    <div id ="resultC">-->
+    <!--        <p>-->
+    <!--            <b>Class: </b>{{ item[0] }}<br>-->
+    <!--            <b>Semester: </b>{{ item[1] }}<br>-->
+    <!--            <b>G.P.R AVG: </b>{{ item[8] }}<br>-->
+    <!--        </p>-->
+    <!--    </div>-->
+    <!--{% endfor %}-->

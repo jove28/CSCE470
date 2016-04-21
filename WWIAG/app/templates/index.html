@@ -1,7 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hi, {{ user.nickname }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.nickname }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %}
+    <link href = "/static/CSS/index.css" rel="stylesheet">
+    <script src="/static/js/form.js"></script>
+    <h1><b>Howdy, 470ers!</b></h1>
+    <h3><b>Search by: class-section (CSCE 470) OR by Professor (LastName)</b></h2>
+    <form action ='/results' method="POST" name = "my_form">
+        Class: <input type = "text" name = "courseNum" maxlength = "4" size = "4" placeholder = "CSCE" >
+        Section: <input type = "text" name = "sectionNum" maxlength="3" size="3" placeholder = "121">
+        <!--<button name= "submit" onclick = "displayOutput()">Submit</button>-->
+        <br>
+        <h2><b>-OR-</b></h2>
+        <div>
+           Professor:<input type = "text" name = "profName" maxlength = "15" size = "16" placeholder = "Last Name">
+        </div>
+        <input type="submit"value="Submit" onclick="myFunction()" class="btn">
+    </form>
+
 {% endblock %}

@@ -1,0 +1,51 @@
+h1{
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+h2{
+    color: white;
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+body{
+    text-align: center;
+}
+
+.nav{
+   text-align: left;
+}
+
+.submitForm{
+   position: absolute;
+}
+
+input[type = text]{
+    height: 30px;
+    width: 75px;
+    text-align: center;
+    font-size: 20px;
+    background-color: #36648B;
+    color: white;
+}
+
+input[name = "sectionNum"]{
+    width: 50px;
+}
+
+input[name = "profName"]{
+    position: relative;
+    width: 150px;
+    
+}
+
+input[type = "submit"]{
+    margin: 20px;
+}
+
+.resultC{
+    border:2px white;
+    outline-color:blue;	
+    outline-style:dotted;
+}
