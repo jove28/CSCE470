@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, url_for 
 import parse
+import recommender
 from app import app
 
 mainDictionary = []
@@ -22,19 +23,23 @@ def results():
         #get the data from the form 
         className = request.form.get('className', None)
         classNumber = request.form.get('classNumber', None)
-        classInput =  className + "-" + classNumber
+        instructor = request.form.get('instructor', None).upper()
+        classInput =  className.upper() + "-" + classNumber
         
         #retrive data from "server"
-        result = parse.getClass(classInput, mainDictionary)
+        result = parse.getClass(classInput, instructor, mainDictionary)
         
         #check if the input matched a class
         if not result: 
             return render_template('Error.html',
-                                    results = classInput)
+                                    results = classInput,
+                                    instructor = instructor)
         else:
+            final = recommender.recommender(classInput, instructor, result)
+            
             return render_template('results.html',
                             title = 'Results',
-                            results = result)
+                            results = final)
                         
     elif request.method == 'GET':
         return render_template('results.html')

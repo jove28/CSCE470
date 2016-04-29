@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>No match for {{ results }}</h1>
-    <a href="index.html"> HOME </a>
+    {% if results == '-' %}
+        <h1>No matching results for Instructor <b>{{ instructor }}</b></h1>
+    {% elif instructor and results  %}
+        <h1>No matching results for:</h1>
+        <h2>Class: <b>{{ results }}</b></h2>
+        <h2>Instructor: <b>{{ instructor }}</b></h2>
+    {% else %}
+        <h1>No matching results for class: <b>{{ results }}</b></h1>
+    {% endif %}
+    
+    
+    <a href="/index"> HOME </a>
 {% endblock %}

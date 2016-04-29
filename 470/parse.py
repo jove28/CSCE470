@@ -4,7 +4,7 @@ import re
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-
+#parse database.txt into a list
 def parse_file():
   inputFile = open(('Database.txt'), 'r')
   mainDictionary = []
@@ -20,21 +20,35 @@ def getKey(item):
   return (item[0], item[2])
   
   
-  
-def getClass(name, dictionary):
+#returns class based on input  
+def getClass(className, instructor, dictionary):
   classList = []
-  for item in dictionary:
-    if name == item[0]:
-      classList.append(item)
-
+  
+  if className and instructor and className != '-':
+    print "both"
+    for item in dictionary:
+      if className == item[0] and instructor == item[2]:
+        classList.append(item)
+  elif className and className != '-':
+    print "classname"
+    for item in dictionary:
+      if className == item[0]:
+        classList.append(item)
+  elif instructor:
+    print "instrcutor"
+    for item in dictionary:
+      if instructor == item[2]:
+        classList.append(item)
+          
   return classList
   
 
-# For testing:
+#For testing:
 # def main():
 #   dictionary = parse_file()
-#   name = 'CSCE-313'
-#   result = getClass(name, dictionary)
+#   name = ""
+#   instructor = "CAVERLEE"
+#   result = getClass(name, instructor, dictionary)
   
 #   for item in result:
 #     print item

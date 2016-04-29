@@ -1,29 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hi, Ivins! </h1>
-    <!--{% for post in class1 %}-->
-    <!--<div><p>{{ post[0] }} says: <b>{{ post[2] }}</b></p></div>-->
-    <!--{% endfor %}-->
+    <link href = "/static/css/index.css" rel="stylesheet">
+    <h1>Hello! 470ers </h1>
+    <p> Howdy, welcome!</p>
+    <p> Search by class-course number 'CSCE 470'</p>
+    <p> by professor 'Caverlee'</p>
+    <p> or by both</p><br>
     
     <form action= "{{ url_for('results') }}" method = 'POST'>
         <div>
-            <div>
-                <span>
-                    Subject:
-                </span>
-            </div>
-            </div>
-                <span>Class Number:</span>
-            </div>
-            <div>
-               <input type="text" name="className"  maxlength = "4" size = "4" placeholder = "CSCE">
-                <input type="text" name="classNumber" maxlength = "4" size = "4" placeholder = "470">
-                <button> Send</button> 
+            <div id = "spanSub" >
+               Subject:<input type="text" name="className"  maxlength = "4" size = "4" placeholder = "CSCE">    
+            </div>  
+            
+            
+            <div id = "spanNum">
+                Course Number: <input type="text" name="classNumber" maxlength = "3" size = "3" placeholder = "470">
+            </div>  
+
+            <div id = "spanProf">
+                <div >
+                    <span>
+                        Professor Last Name:
+                    </span>
+                </div>
+                <input type="text" name="instructor"  maxlength = "15" size = "25" placeholder = "Caverlee">
             </div>
             
+            <input type="submit" value="Submit"></input>
+                
+                <!--<button> Send</button> -->
         </div>
         
     </form>
-    
-
 {% endblock %}

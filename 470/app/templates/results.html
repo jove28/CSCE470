@@ -1,8 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-<h1> Hi, Results:</h1>
-    {{ Results }}
-    {% for item in results %}
-    <div><br>{{ item }}</p></div>
-    {% endfor %}
+<h1>Results:</h1>
+    <table class="table table-hover">
+        <thead>
+            <th>Rank</th>
+            <th>Professor</th>
+            <th>Class</th>
+            <th>Course Avg</th>
+            <th>Course Max/Min Avg</th>
+            <th>Recommended Semester</th>
+          </thead>
+        {% for item in results %}
+        <tbody>      
+            <tr>
+                <td>{{ results.index(item) + 1}}</td>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+
+        </tbody>
+      {% endfor %}
+    </table>
+    
 {% endblock %}

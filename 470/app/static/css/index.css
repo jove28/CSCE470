@@ -1,0 +1,44 @@
+#spanSub, #spanNum{
+    display: inline;
+}
+
+h1{
+    padding-bottom: 5px;
+}
+
+p{
+    padding: 0;
+}
+
+#spanProf{
+    padding-top: 70px;
+    padding-bottom: 70px;
+    
+}
+
+body{
+    text-align: center;
+}
+
+input[type = text]{
+    height: 30px;
+    width: 75px;
+    text-align: center;
+    font-size: 20px;
+    background-color: #36648B;
+    color: white;
+}
+
+input[name = "classNumber"]{
+    width: 50px;
+}
+
+input[name = "instructor"]{
+    position: relative;
+    width: 150px;
+    
+}
+
+input[type = "submit"]{
+    margin: 20px;
+}
