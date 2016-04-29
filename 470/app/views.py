@@ -14,17 +14,27 @@ def index():
         return redirect(url_for('/results'))
     else:
         return render_template("index.html")
-
     
     
 @app.route('/results', methods = ['GET', 'POST'])
 def results():
     if request.method == 'POST':
-        name = request.form.get('name', None)
-        result = parse.getClass(name, mainDictionary)
-        return render_template('results.html',
-                        title = 'Results',
-                        results = result)
+        #get the data from the form 
+        className = request.form.get('className', None)
+        classNumber = request.form.get('classNumber', None)
+        classInput =  className + "-" + classNumber
+        
+        #retrive data from "server"
+        result = parse.getClass(classInput, mainDictionary)
+        
+        #check if the input matched a class
+        if not result: 
+            return render_template('Error.html',
+                                    results = classInput)
+        else:
+            return render_template('results.html',
+                            title = 'Results',
+                            results = result)
                         
     elif request.method == 'GET':
         return render_template('results.html')

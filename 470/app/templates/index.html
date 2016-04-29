@@ -6,9 +6,24 @@
     <!--{% endfor %}-->
     
     <form action= "{{ url_for('results') }}" method = 'POST'>
-        <input type="text" name="name" value = {{ request.form.name }}>
-        <input type="text" name1="name" value = {{ request.form.name1 }}>
-        <button> Send</button>
+        <div>
+            <div>
+                <span>
+                    Subject:
+                </span>
+            </div>
+            </div>
+                <span>Class Number:</span>
+            </div>
+            <div>
+               <input type="text" name="className"  maxlength = "4" size = "4" placeholder = "CSCE">
+                <input type="text" name="classNumber" maxlength = "4" size = "4" placeholder = "470">
+                <button> Send</button> 
+            </div>
+            
+        </div>
+        
     </form>
+    
 
 {% endblock %}

@@ -26,7 +26,7 @@ def getClass(name, dictionary):
   for item in dictionary:
     if name == item[0]:
       classList.append(item)
-  
+
   return classList
   
 
