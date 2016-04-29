@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Hi, Ivins! </h1>
+    <!--{% for post in class1 %}-->
+    <!--<div><p>{{ post[0] }} says: <b>{{ post[2] }}</b></p></div>-->
+    <!--{% endfor %}-->
+    
+    <form action= "{{ url_for('results') }}" method = 'POST'>
+        <input type="text" name="name" value = {{ request.form.name }}>
+        <input type="text" name1="name" value = {{ request.form.name1 }}>
+        <button> Send</button>
+    </form>
+
+{% endblock %}
