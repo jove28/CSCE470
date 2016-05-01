@@ -60,7 +60,31 @@ def getSemesterAvg(results):
     return list
  
 def getKey2(item):
-  return (item[2], item[3]) 
+    return (item[2], item[3])
+    
+def getKey3(item):
+    return item[0]
+
+def getInstructorClass(results):
+    master = sorted(results , key = getKey3)
+    slave = []
+    temp =  []
+    index = []
+    
+    for item in master:
+        name = str(item[0])
+        if len(index) == 0:
+            index.append(name)
+            temp.append(item)
+        elif name in index:
+            temp.append(item)
+        else:
+            index.append(name)
+            slave.append(temp)
+            temp = []
+            temp.append(item)
+    slave.append(temp)
+    return slave
   
 def getClassInstructor(results):
     master = sorted(results , key = getKey2)
@@ -93,7 +117,6 @@ def format(results):
     final.append(getSemesterAvg(results) )
     return final
     
-
 def sortAvg(item):
     return item[2]
     
@@ -102,13 +125,14 @@ def recommender(classInput, instructor, results):
     if classInput and instructor and classInput != '-':
         list = []
         list.append(format(results))
-    elif instructor:
-        final  = getClassInstructor(results) 
+    elif instructor and classInput == '-':
+        final  = getInstructorClass(results) 
+        print final
         list = []
         for item in final:
             list.append(format(item))
         list = sorted(list, key = sortAvg, reverse = True )
-    elif classInput != '-':
+    elif classInput != '-' and not instructor:
         final = getClassInstructor(results)
         list = []
         for item in final:
@@ -117,19 +141,17 @@ def recommender(classInput, instructor, results):
     return list
 
 
-# # For testing:
-# def main():
-#     dictionary = parse.parse_file()
-#     name = "CSCE-121"
-#     instructor = ""
-#     result = parse.getClass(name, instructor, dictionary)
-#     final = getClassInstructor(result)
+# For testing:
+def main():
+    dictionary = parse.parse_file()
+    name = ""
+    instructor = "CAVERLEE"
+    result = parse.getClass(name, instructor, dictionary)
     
-#     for item in final:
-#         list.append(format(item))
-#     return list
+    for item in result:
+        print item
 
 
-# if __name__ == '__main__':
-#   main()
+if __name__ == '__main__':
+  main()
   

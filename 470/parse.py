@@ -43,7 +43,7 @@ def getClass(className, instructor, dictionary):
   return classList
   
 
-#For testing:
+# # For testing:
 # def main():
 #   dictionary = parse_file()
 #   name = ""
