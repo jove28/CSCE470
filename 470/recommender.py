@@ -3,9 +3,10 @@ import os
 import re
 import parse
 
+
+# list of objects -> avg
 def getAvg(results):
     avg = 0
-    
     if len(results) == 0:
         return 0
     else:
@@ -13,19 +14,18 @@ def getAvg(results):
             avg += float(item[9])
     avg = avg / len(results)
     return avg
-    
+
+#list of objects - > min/max    
 def getMinMax(results):
     max = 0
     min = 100
-    end = ""
     for item in results:
         if max <= float(item[9]):
             max = float(item[9])
     for item in results:
         if min >= float(item[9]):
             min = float(item[9])
-    end = str(str(max) + " / " + str(min))
-    return end
+    return str(str(max) + " / " + str(min))
 
 def getSemesterAvg(results):
     summer = []
@@ -57,7 +57,6 @@ def getSemesterAvg(results):
             return "Summer " + str(summerAvg)
         else:
             return "Fall: " + str(fallAvg)
-    return list
  
 def getKey2(item):
     return (item[2], item[3])

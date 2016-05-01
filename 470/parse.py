@@ -43,18 +43,18 @@ def getClass(className, instructor, dictionary):
   return classList
   
 
-# # For testing:
-# def main():
-#   dictionary = parse_file()
-#   name = ""
-#   instructor = "CAVERLEE"
-#   result = getClass(name, instructor, dictionary)
+# For testing:
+def main():
+  dictionary = parse_file()
+  name = "CSCE-121"
+  instructor = ""
+  result = getClass(name, instructor, dictionary)
   
-#   for item in result:
-#     print item
+  for item in result:
+    print item
   
 
 
-# if __name__ == '__main__':
-#   main()
+if __name__ == '__main__':
+  main()
   

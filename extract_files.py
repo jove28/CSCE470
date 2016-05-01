@@ -70,6 +70,10 @@ def show(mainFolder):
     
     
   
+  
+#to start, first convert pdf files using pdttotext -layout pdffile.pdf
+# then './extract_files.py --parse Folder' to remove whitespace
+# then './extract_files.py --extract Folder' to get the database.txt
 def main():
   if len(sys.argv) != 3:
     print 'usage: ./extract_files.py {--parse | --extract} Folder'

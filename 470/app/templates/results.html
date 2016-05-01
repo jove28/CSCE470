@@ -7,7 +7,8 @@
             <th>Professor</th>
             <th>Class</th>
             <th>Course Avg</th>
-            <th>Course Max/Min Avg</th>
+            <th>Course Max/Min</th>
+            <th>Highest Semester Avg</th>
             <th>Recommended Semester</th>
           </thead>
         {% for item in results %}
@@ -19,7 +20,7 @@
                 <td>{{ item[2] }}</td>
                 <td>{{ item[3] }}</td>
                 <td>{{ item[4] }}</td>
-                <td>{{ item[5] }}</td>
+                <td>{{ item[4] }}</td>
 
         </tbody>
       {% endfor %}
