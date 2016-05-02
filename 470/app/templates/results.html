@@ -9,21 +9,22 @@
             <th>Course Avg</th>
             <th>Course Max/Min</th>
             <th>Highest Semester Avg</th>
-            <th>Recommended Semester</th>
+            <th> Score</th>
           </thead>
         {% for item in results %}
         <tbody>      
             <tr>
-                <td>{{ results.index(item) + 1}}</td>
+                <td>{{ results.index(item) + 1 }}</td>
                 <td>{{ item[0] }}</td>
                 <td>{{ item[1] }}</td>
                 <td>{{ item[2] }}</td>
                 <td>{{ item[3] }}</td>
                 <td>{{ item[4] }}</td>
-                <td>{{ item[4] }}</td>
-
+                <td>{{ item[5] }}</td>
+            
         </tbody>
       {% endfor %}
     </table>
+    
     
 {% endblock %}

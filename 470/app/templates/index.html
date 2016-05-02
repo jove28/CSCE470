@@ -1,23 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
     <link href = "/static/css/index.css" rel="stylesheet">
-    <h1>Hello! 470ers </h1>
-    <p> Howdy, welcome!</p>
-    <p> Search by class-course number 'CSCE 470'</p>
-    <p> by professor 'Caverlee'</p>
-    <p> or by both</p><br>
+    <h1> Howdy, welcome!</h1>
+    <h2> Search by class-course number 'CSCE 470'</h2>
+    <h2> by professor 'Caverlee'</h2>
+    <h2> or by both</h2><br>
     
     <form action= "{{ url_for('results') }}" method = 'POST'>
         <div>
             <div id = "spanSub" >
                Subject:<input type="text" name="className"  maxlength = "4" size = "4" placeholder = "CSCE">    
             </div>  
-            
-            
             <div id = "spanNum">
                 Course Number: <input type="text" name="classNumber" maxlength = "3" size = "3" placeholder = "470">
-            </div>  
-
+            </div>
             <div id = "spanProf">
                 <div >
                     <span>
@@ -26,7 +22,6 @@
                 </div>
                 <input type="text" name="instructor"  maxlength = "15" size = "25" placeholder = "Caverlee">
             </div>
-            
             <input type="submit" value="Submit"></input>
                 
                 <!--<button> Send</button> -->
