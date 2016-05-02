@@ -2,6 +2,7 @@ import sys
 import os
 import re
 import parse
+import math
 
 
 # list of objects -> avg
@@ -13,8 +14,24 @@ def getAvg(results):
         for item in results:
             avg += float(item[9])
     avg = avg / len(results)
+    
     return avg
 
+def getNormalDistribution(results):
+    diff = 0
+    mean = getAvg(results)
+
+    for item in results:
+        diff += abs(float(item[9]) - mean)**2
+        
+    dev = math.sqrt(diff/len(results))
+
+
+    for item in results:
+        item.append( ((float(item[9]) - mean ) / dev))
+    
+    return results
+    
 #list of objects - > min/max    
 def getMinMax(results):
     max = 0
@@ -27,11 +44,11 @@ def getMinMax(results):
             min = float(item[9])
     return str(str(max) + " / " + str(min))
 
-def getSemesterAvg(results):
-    summer = []
+def getSemester(results):
+    master = []
     spring = []
+    summer = []
     fall = []
-    
     for item in results:
         word = item[1]
         if word[:-5] == "SPRING":
@@ -43,8 +60,20 @@ def getSemesterAvg(results):
         else:
             continue
         
-    summerAvg = getAvg(summer)
+    master.append(spring)
+    master.append(summer)
+    master.append(fall)
+    return master
+    
+def getSemesterAvg(results):
+    master = getSemester(results)
+    
+    spring = master[0]
+    summer = master[1]
+    fall = master[2]
+    
     springAvg = getAvg(spring)
+    summerAvg = getAvg(summer)
     fallAvg = getAvg(fall)
 
     if summerAvg <= springAvg:
@@ -84,7 +113,9 @@ def getInstructorClass(results):
             temp.append(item)
     slave.append(temp)
     return slave
-  
+    
+# returns list of list by class instructor
+#[ [[csce-121,Daugherity],[csce-121,daugherity]],[[csce-121,lee]].etc..]  
 def getClassInstructor(results):
     master = sorted(results , key = getKey2)
     slave = []
@@ -105,52 +136,90 @@ def getClassInstructor(results):
             temp.append(item)
     slave.append(temp)
     return slave
+
+def calcRank(result):
+    distAvg = 0
+    semDist = 0
+    for item in result:
+        distAvg += float(item[15])
+        semDist += float(item[16])
+    distAvg = distAvg/len(result)
+    semDist = semDist/len(result)
+    total = distAvg + semDist
+    return total
     
+        
+        
 def format(results):
     final = []
     final.append(str(results[0][2]) + ", " + str(results[0][3]))
     final.append(str(results[0][0]))
     avg = getAvg(results)
     final.append(str(avg))
-    final.append( getMinMax(results) )
+    final.append(getMinMax(results))
     final.append(getSemesterAvg(results) )
+    final.append(calcRank(results))
     return final
     
 def sortAvg(item):
-    return item[2]
-    
+    return item[5]
+
 def recommender(classInput, instructor, results):
     list = []
     if classInput and instructor and classInput != '-':
-        list = []
-        list.append(format(results))
+        temp = []
+        temp.append(str(results[0][2]) + ", " + str(results[0][3]))
+        temp.append(str(results[0][0]))
+        avg = getAvg(results)
+        temp.append(str(avg))
+        temp.append( getMinMax(results) )
+        temp.append(getSemesterAvg(results) )
+        list.append(temp)
+
     elif instructor and classInput == '-':
-        final  = getInstructorClass(results) 
-        print final
+        gauss = getNormalDistribution(results)
+        result  = getInstructorClass(gauss)
+        final = calcSemesterTaught(result)
         list = []
         for item in final:
             list.append(format(item))
         list = sorted(list, key = sortAvg, reverse = True )
     elif classInput != '-' and not instructor:
-        final = getClassInstructor(results)
+        gauss = getNormalDistribution(results)
+        result = getClassInstructor(gauss)
+        final = calcSemesterTaught(result)
         list = []
         for item in final:
             list.append(format(item))
         list = sorted(list, key = sortAvg, reverse = True )
+
     return list
 
+def calcSemesterTaught(results):
+    for item in results:
+        for obj in item:
+            semester = obj[1]
+            obj.append( int(semester[-5:]) - 2016 + 5.5)
+    return results
+    
+
+    
 
 # For testing:
 def main():
     dictionary = parse.parse_file()
-    name = ""
-    instructor = "CAVERLEE"
+    name = "CHEM-102"
+    instructor = "BANERJEE"
     result = parse.getClass(name, instructor, dictionary)
-    
-    for item in result:
-        print item
-
-
+    # temp2 = getNormalDistribution(result)
+    # temp = getClassInstructor(temp2)
+    # temp3 = calcSemesterTaught(temp)
+   
+    # list = []
+    # for item in temp3:
+    #         list.append(format(item))
+    # list = sorted(list, key = sortAvg, reverse = True )
+    print result
 if __name__ == '__main__':
   main()
   
