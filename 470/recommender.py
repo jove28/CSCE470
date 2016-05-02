@@ -28,8 +28,19 @@ def getNormalDistribution(results):
 
 
     for item in results:
-        item.append( ((float(item[9]) - mean ) / dev))
-    
+        term = ((float(item[9]) - mean ) / dev)
+        if term >= 0 and term < 1:
+            item.append(term*4)
+        elif term >= 1 and term < 2:
+             item.append(term*5)
+        elif term >=2:
+            item.append(term*6)
+        elif term < 0 and term >= -1:
+            item.append(term*3)
+        elif term <-1 and term >= -2:
+            item.append(term*2)
+        else:
+            item.append(term*1)
     return results
     
 #list of objects - > min/max    
@@ -142,10 +153,10 @@ def calcRank(result):
     semDist = 0
     for item in result:
         distAvg += float(item[15])
-        semDist += float(item[16])
+        semDist += float(item[17])
     distAvg = distAvg/len(result)
     semDist = semDist/len(result)
-    total = distAvg + semDist
+    total = distAvg*60 + semDist*80
     return total
     
         
@@ -196,30 +207,68 @@ def recommender(classInput, instructor, results):
     return list
 
 def calcSemesterTaught(results):
+    length = 0
+    avg = 0
+    diff = 0
+    
     for item in results:
         for obj in item:
+            length += len(item)
             semester = obj[1]
             obj.append( int(semester[-5:]) - 2016 + 5.5)
-    return results
-    
+            
+    for item in results:
+        for obj in item:
+            avg += float(obj[16])
+    mean = avg / length
+
+    for item in results:
+        for obj in item:
+            diff += abs(float(obj[16]) - mean)**2
+        
+    dev = math.sqrt(diff/length)
+
+
+    for item in results:
+        for obj in item:
+            term = ((float(obj[16]) - mean ) / dev)
+            if term >= 0 and term < 1:
+                obj.append(term*4)
+            elif term >= 1 and term < 2:
+                obj.append(term*5)
+            elif term >=2:
+                obj.append(term*6)
+            elif term < 0 and term >= -1:
+                obj.append(term*3)
+            elif term <-1 and term >= -2:
+                obj.append(term*2)
+            else:
+                obj.append(term*1)
+
+    return results  
 
     
 
 # For testing:
 def main():
     dictionary = parse.parse_file()
-    name = "CHEM-102"
-    instructor = "BANERJEE"
+    name = "CSCE-221"
+    instructor = "SCHAEFER"
     result = parse.getClass(name, instructor, dictionary)
-    # temp2 = getNormalDistribution(result)
-    # temp = getClassInstructor(temp2)
-    # temp3 = calcSemesterTaught(temp)
+#     temp2 = getNormalDistribution(result)
+#     temp = getClassInstructor(temp2)
+#     temp3 = calcSemesterTaught(temp)
    
-    # list = []
-    # for item in temp3:
-    #         list.append(format(item))
-    # list = sorted(list, key = sortAvg, reverse = True )
+#     list = []
+#     for item in temp3:
+#             list.append(format(item))
+#     list = sorted(list, key = sortAvg, reverse = True )
+#     # for item in temp3:
+#     #     for obj in item:
+#     #         print obj
     print result
+    
+    
 if __name__ == '__main__':
   main()
   
