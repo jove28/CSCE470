@@ -1,1 +1,1 @@
-# CSCE470
+# CSCE470-Information and Storage Retrieval
